@@ -154,18 +154,20 @@ def upload_files(local_folder):
 
 if __name__ == "__main__":
 
+	# parse args
+	args = parse_args()
+
 	# setup stdout logging
 	setup_log()
 
 	# log into Synapse
-	logging.info("this program assumes you use a personal access token with a ~/.synapseConfig file to log into Synapse.")
-	logging.info("personal access tokens: https://help.synapse.org/docs/Managing-Your-Account.2055405596.html#ManagingYourAccount-PersonalAccessTokens")
-	logging.info("~/.synapseConfig configuration: https://help.synapse.org/docs/Client-Configuration.1985446156.html")
+	if args.verbose:
+		logging.info("this program assumes you use a personal access token with a ~/.synapseConfig file to log into Synapse.")
+		logging.info("personal access tokens: https://help.synapse.org/docs/Managing-Your-Account.2055405596.html#ManagingYourAccount-PersonalAccessTokens")
+		logging.info("~/.synapseConfig configuration: https://help.synapse.org/docs/Client-Configuration.1985446156.html")
+
 	syn = synapseclient.Synapse()
 	syn.login()
-
-	# parse args
-	args = parse_args()
 
 	# mirror folder directory to synapse
 	mirror_folders(local_folder = args.folder, project_id = args.syn)
